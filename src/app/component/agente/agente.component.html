@@ -1,0 +1,58 @@
+<div class="center" style="margin-top: 10%;">
+
+    <input class="form-control" type="file" required (change)="selectFile($event)"/>
+    <button mat-raised-button color="primary" [disabled]="!selectedFiles" (click)="upload()" style="margin-left: 2%;">Upload</button>
+
+    <mat-spinner [mode]="mode" [value]="progress" style="margin-top: 2%;margin-left: 50%;"></mat-spinner>
+    <mat-form-field appearance="fill">
+      <mat-label>Regiões</mat-label>
+      <mat-select [(value)]="regiaoSelecinada" (selectionChange)="buscarPorRegiao(regiaoSelecinada)">
+        <mat-option *ngFor="let r of regiaoProjection" [value]="r.value">
+          {{r.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="example-container mat-elevation-z8">
+      <div class="example-table-container">
+        <table mat-table [dataSource]="agenteProjection" class="example-table" matSort matSortDisableClear matSortDirection="desc">
+          <ng-container matColumnDef="precoMedio">
+            <th mat-header-cell *matHeaderCellDef>Preco Medio</th>
+            <td mat-cell *matCellDef="let row">{{row.precoMedio}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="compra">
+            <th mat-header-cell *matHeaderCellDef>Compra</th>
+            <td mat-cell *matCellDef="let row">{{row.compra}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="geracao">
+            <th mat-header-cell *matHeaderCellDef>Geracao</th>
+            <td mat-cell *matCellDef="let row">{{row.geracao}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="regiao">
+            <th mat-header-cell *matHeaderCellDef>Regiao</th>
+            <td mat-cell *matCellDef="let row">{{row.regiao}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <td mat-cell *matCellDef="let row">{{row.data | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Cógido</th>
+            <td mat-cell *matCellDef="let row">{{row.codigo}}</td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator [length]="resultsLength" [pageSize]="30" aria-label="aria-label"></mat-paginator>
+    </div>
+</div>
+
+
+
